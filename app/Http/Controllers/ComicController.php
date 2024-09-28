@@ -73,9 +73,18 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comic $comic)
+    public function show($id)
     {
-        return view('comic.show', compact('comic'));
+        $comic = Comic::find($id);
+        $header_menu = config('db.header_menu');
+        $main_navbar = config('db.main_navbar');
+        $dc_comics = config('db.dc_comics');
+        $shop_section = config('db.shop_section');
+        $dc_section = config('db.dc_section');
+        $sites_section = config('db.sites_section');
+        $social_media = config('db.social_media');
+        return view('comics.show', compact('comic', 'header_menu', 'main_navbar', 
+        'dc_comics', 'shop_section', 'dc_section', 'sites_section', 'social_media'));
     }
 
     /**

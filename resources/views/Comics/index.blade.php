@@ -19,25 +19,13 @@
                     <p>No comics available.</p>
                 @else
                     @foreach ($comics as $comic)
-                        <div class="col-md-4">
-                            <div class="card mb-4">
+
+                        <div class="col-2 mb-4">
+                            <div class="border border-2 border-secondary p-2 rounded">
                                 <img src="{{ $comic->thumb }}" class="card-img-top" alt="{{ $comic->title }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $comic->title }}</h5>
-                                    <p class="card-text">{{ $comic->description }}</p>
-                                    <p><strong>Price:</strong> ${{ number_format($comic->price, 2) }}</p>
-                                    <p><strong>Series:</strong> {{ $comic->series }}</p>
-                                    <p><strong>Type:</strong> {{ $comic->type }}</p>
-                                    <p><strong>Sale Date:</strong> {{ \Carbon\Carbon::parse($comic->sale_date)->format('d-m-Y') }}</p>
-    
+                                <div class="mt-2">
                                     <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-info">View</a>
                                     <a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-warning">Edit</a>
-    
-                                    <form action="{{ route('comics.destroy', $comic->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
