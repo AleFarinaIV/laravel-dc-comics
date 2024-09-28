@@ -14,7 +14,16 @@ class ComicController extends Controller
      */
     public function index()
     {
-        //
+        $header_menu = config('db.header_menu');
+        $main_navbar = config('db.main_navbar');
+        $dc_comics = config('db.dc_comics');
+        $shop_section = config('db.shop_section');
+        $dc_section = config('db.dc_section');
+        $sites_section = config('db.sites_section');
+        $social_media = config('db.social_media');
+        $comics = Comic::all();
+        return view('comics.index', compact('comics', 'header_menu', 'main_navbar', 
+        'dc_comics', 'shop_section', 'dc_section', 'sites_section', 'social_media'));
     }
 
     /**
@@ -24,7 +33,15 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        $header_menu = config('db.header_menu');
+        $main_navbar = config('db.main_navbar');
+        $dc_comics = config('db.dc_comics');
+        $shop_section = config('db.shop_section');
+        $dc_section = config('db.dc_section');
+        $sites_section = config('db.sites_section');
+        $social_media = config('db.social_media');
+        return view('comics.create', compact('header_menu', 'main_navbar', 
+        'dc_comics', 'shop_section', 'dc_section', 'sites_section', 'social_media'));
     }
 
     /**
@@ -35,7 +52,19 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'thumb' => 'required|url',
+            'price' => 'required|numeric',
+            'series' => 'required|string',
+            'sale_date' => 'required|date',
+            'type' => 'required|string',
+        ]);
+
+        Comic::create($data);
+
+        return redirect()->route('comics.index');
     }
 
     /**
@@ -44,9 +73,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        //
+        return view('comic.show', compact('comic'));
     }
 
     /**
@@ -55,9 +84,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comic $comic)
     {
-        //
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -67,9 +96,21 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'thumb' => 'required|url',
+            'price' => 'required|numeric',
+            'series' => 'required|string',
+            'sale_date' => 'required|date',
+            'type' => 'required|string',
+        ]);
+
+        $comic->update($data);
+
+        return redirect()->route('comics.index');
     }
 
     /**
@@ -78,8 +119,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return redirect()->route('comics.index');
     }
 }
