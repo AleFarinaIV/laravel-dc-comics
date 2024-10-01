@@ -11,15 +11,19 @@
         </div>
 
         <div class="container pt-5">
-            <div class="py-3">
+            <div class="d-flex justify-content-between align-items-center py-3">
                 <a href="{{ route('comics.create') }}" class="btn btn-primary">Create New Comic</a>
+                @if (session('success'))
+                <span class="alert alert-success ms-5">
+                    {{ session('success') }}
+                </span>
+            @endif
             </div>
             <div class="row">
                 @if ($comics->isEmpty())
                     <p>No comics available.</p>
                 @else
                     @foreach ($comics as $comic)
-
                         <div class="col-2 mb-4">
                             <div class="border border-2 border-secondary p-2 rounded">
                                 <img src="{{ $comic->thumb }}" class="card-img-top" alt="{{ $comic->title }}">
@@ -40,15 +44,13 @@
         <div id="main_navbar" class="container-full bg-primary">
             <div id="main_navbar_section" class="d-flex justify-content-center align-items-center pt-5">
 
-                @foreach($main_navbar as $item)
-
+                @foreach ($main_navbar as $item)
                     <a href="{{ $item['url'] }}">
                         <div id="logo_img_container" class="d-flex justify-content-center align-items-center">
-                          <img src="{{ Vite::asset($item['logo']) }}" alt="{{ $item['text'] }}">
-                          <p class="m-0">{{ $item['text'] }}</p>
+                            <img src="{{ Vite::asset($item['logo']) }}" alt="{{ $item['text'] }}">
+                            <p class="m-0">{{ $item['text'] }}</p>
                         </div>
                     </a>
-
                 @endforeach
 
             </div>
