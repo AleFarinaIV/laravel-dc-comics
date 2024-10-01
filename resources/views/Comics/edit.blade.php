@@ -58,9 +58,9 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group py-3">
+                        <div class="form-group d-flex flex-column align-items-start w-25 py-3">
                             <label for="type">Type</label>
-                            <select name="type" id="type">
+                            <select name="type" id="type" class="form-select mt-2">
                                 @foreach ($types as $type)
                                     <option value="{{ $type }}"
                                         @if($type == old('type', $comic->type)) selected @endif
@@ -73,7 +73,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-success">Update Comic</button>
+                        <button type="submit" class="btn btn-primary">Update Comic</button>
                     </form>
                 </div>
             </div>

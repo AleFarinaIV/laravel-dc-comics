@@ -24,12 +24,17 @@
                     <p>No comics available.</p>
                 @else
                     @foreach ($comics as $comic)
-                        <div class="col-2 mb-4">
+                        <div class="col-3 mb-4">
                             <div class="border border-2 border-secondary p-2 rounded">
                                 <img src="{{ $comic->thumb }}" class="card-img-top" alt="{{ $comic->title }}">
-                                <div class="mt-2">
-                                    <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-info">View</a>
-                                    <a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-warning">Edit</a>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-info px-4">View</a>
+                                    <a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-warning px-4">Edit</a>
+                                    <form action="{{ route('comics.destroy', $comic->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Are you sure you want to delete this comic?')">Delete</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
