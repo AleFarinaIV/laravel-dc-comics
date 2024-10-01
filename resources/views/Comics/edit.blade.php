@@ -6,6 +6,9 @@
 
     <section id="center_main">
         <div class="container py-5">
+            <div class="text-center text-white mb-4">
+                <span class="bg-primary fs-2 fw-semibold fst-italic border rounded border-3 border-dark px-4">HERE YOU COULD EDIT COMIC SPECIFICS!</span>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <form action="{{ route('comics.update', $comic->id) }}" method="POST">
